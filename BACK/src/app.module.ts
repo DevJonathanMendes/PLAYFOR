@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TestGfcModule } from './test-gfc/test-gfc.module';
 import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
 	imports: [
@@ -14,6 +15,7 @@ import { UsersModule } from './users/users.module';
 		}),
 		TestGfcModule,
 		UsersModule,
+		ConfigModule.forRoot(),
 	],
 	controllers: [AppController],
 	providers: [AppService],
