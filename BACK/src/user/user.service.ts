@@ -1,21 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { createHash, randomUUID } from 'crypto';
+import { createHash } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
-	constructor(private prisma: PrismaService) {}
+	constructor(
+		private prisma: PrismaService,
+		private configService: ConfigService,
+	) {}
 
 	async create(createUserInput: CreateUserInput) {
 		return await this.prisma.user.create({
 			data: {
 				username: createUserInput.username,
 				email: createUserInput.email,
-				password_hash: createHash('sha256')
-					.update(createUserInput.password_hash)
-					.digest('hex'),
+				password_hash:
+					createHash('sha256')
+						.update(createUserInput.password_hash)
+						.digest('hex') + this.configService.get<string>('PASSWORD_HASH'),
 			},
 		});
 	}
@@ -36,10 +41,9 @@ export class UserService {
 			data: {
 				username: updateUserInput.username,
 				email: updateUserInput.email,
-				password_hash:
-					createHash('sha256')
-						.update(updateUserInput.password_hash)
-						.digest('hex') + randomUUID(),
+				password_hash: createHash('sha256')
+					.update(updateUserInput.password_hash)
+					.digest('hex'),
 			},
 		});
 	}
