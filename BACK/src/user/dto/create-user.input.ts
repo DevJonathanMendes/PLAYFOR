@@ -9,5 +9,5 @@ export class CreateUserInput {
 	email: string;
 
 	@Field()
-	password_hash: string;
+	password: string;
 }

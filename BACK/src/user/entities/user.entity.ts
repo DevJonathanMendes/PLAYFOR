@@ -9,5 +9,14 @@ export class User {
 	email: string;
 
 	@Field()
-	password_hash: string;
+	password: string;
+}
+
+@ObjectType()
+export class UserToken {
+	@Field()
+	username: string;
+
+	@Field()
+	access_token: string;
 }
