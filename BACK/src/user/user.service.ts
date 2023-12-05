@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateUserInput } from './dto/update-user.input';
+import { LoginUserInput } from './dto/login-user.input';
 
 @Injectable()
 export class UserService {
@@ -13,7 +13,7 @@ export class UserService {
 		private configService: ConfigService,
 	) {}
 
-	async login(updateUserInput: UpdateUserInput) {
+	async login(updateUserInput: LoginUserInput) {
 		const { username, password } = updateUserInput;
 		const user = await this.prisma.user.findUnique({ where: { username } });
 
