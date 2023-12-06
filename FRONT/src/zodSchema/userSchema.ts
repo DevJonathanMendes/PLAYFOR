@@ -1,16 +1,13 @@
 import { z as zod } from "zod";
 
 export const loginSchema = zod.object({
-  username: zod
-    .string()
-    .nonempty("Username is required")
-    .regex(/^[A-Za-z]+$/i, "Only letters are allowed"),
+  username: zod.string().nonempty("Username is required"),
   password: zod.string().nonempty("Password is required"),
 });
 
 export const registerSchema = loginSchema
   .extend({
-    email: zod.string(),
+    email: zod.string().email(),
     confirm_password: zod.string().nonempty("Confirm password is required"),
   })
   .refine(({ password, confirm_password }) => password === confirm_password, {
