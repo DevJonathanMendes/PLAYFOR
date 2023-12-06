@@ -39,3 +39,6 @@ lerna-debug.log*
 
 # GraphQL Schema
 schema.gql
+
+# Prisma
+/prisma/migrations
