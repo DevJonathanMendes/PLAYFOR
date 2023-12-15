@@ -1,11 +1,8 @@
-import {
-	Injectable,
-	NotFoundException,
-	UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'crypto';
+import { GraphQLError } from 'graphql';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginUserInput } from './dto/login-user.input';
 import { RegisterUserInput } from './dto/register-user.input';
@@ -18,43 +15,38 @@ export class UserService {
 		private configService: ConfigService,
 	) {}
 
-	async login(inputs: LoginUserInput) {
-		const { username, password } = inputs;
+	async login({ username, password }: LoginUserInput) {
 		const user = await this.prisma.user.findUnique({ where: { username } });
 
-		if (user?.username === undefined)
-			throw new NotFoundException('User not exists');
+		if (!user) throw new GraphQLError('User Does Not Exist');
 
-		if (user?.password_hash !== this.hash(password))
-			throw new UnauthorizedException('Incorrect password');
+		if (user.password_hash !== this.passwordHash(password))
+			throw new GraphQLError('Incorrect Password');
 
-		const payload = { username };
 		return {
-			...payload,
-			access_token: await this.jwtService.signAsync(payload),
+			username,
+			email: user.email,
+			access_token: await this.jwtService.signAsync({ username }),
 		};
 	}
 
-	async register(inputs: RegisterUserInput) {
-		const { username, email, password } = inputs;
-
+	async register({ username, email, password }: RegisterUserInput) {
 		await this.prisma.user.create({
 			data: {
 				username,
 				email,
-				password_hash: this.hash(password),
+				password_hash: this.passwordHash(password),
 			},
 		});
 
-		const payload = { username, email };
-
 		return {
-			...payload,
-			access_token: await this.jwtService.signAsync(payload),
+			username,
+			email,
+			access_token: await this.jwtService.signAsync({ username, email }),
 		};
 	}
 
-	private hash(password: string) {
+	private passwordHash(password: string) {
 		const PASSWORD_HASH = this.configService.get<string>('PASSWORD_HASH');
 
 		return createHash('sha256')
