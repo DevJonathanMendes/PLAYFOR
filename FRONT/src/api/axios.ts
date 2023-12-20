@@ -15,7 +15,7 @@ export async function axiosLogin(user: LoginInputs) {
 
     const data = {
       query: `mutation{
-      loginUser(loginUserInput:{
+      loginUser(User:{
         username:"${user.username}"
         password:"${user.password}"
       }){
