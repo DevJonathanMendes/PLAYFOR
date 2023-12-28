@@ -1,4 +1,4 @@
-import Form from "./components/form";
+import FormLogin from "./components/formLogin";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Login in to your account
             </h1>
-            <Form />
+            <FormLogin />
           </div>
         </div>
       </div>
