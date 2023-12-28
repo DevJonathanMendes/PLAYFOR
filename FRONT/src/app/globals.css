@@ -32,13 +32,19 @@ body {
 }
 
 @layer components {
-  .label {
-    @apply block mb-1 text-sm font-medium text-gray-900 dark:text-white;
+  .FormLabel {
+    @apply block mb-2 font-medium leading-4 text-gray-900;
   }
 
-  .input {
+  .FormInput {
     @apply block border w-full p-2.5 sm:text-sm rounded-lg;
     @apply bg-gray-50 border-gray-300 text-gray-900;
     @apply focus:border-primary-600 focus:ring-primary-600;
+  }
+
+  .FormSubmit {
+    @apply w-full text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center;
+    @apply focus:ring-4 focus:outline-none focus:ring-primary-300;
+    @apply bg-primary-600 hover:bg-primary-700;
   }
 }
