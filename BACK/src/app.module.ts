@@ -14,6 +14,17 @@ import { UserService } from './user/user.service';
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
 			autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+			includeStacktraceInErrorResponses: false,
+			formatError(formattedError) {
+				const { message, path } = formattedError;
+				const { status } = formattedError.extensions;
+
+				return {
+					message,
+					path,
+					status,
+				};
+			},
 		}),
 		ConfigModule.forRoot(),
 		UserModule,
