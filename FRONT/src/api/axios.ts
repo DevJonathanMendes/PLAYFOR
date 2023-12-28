@@ -1,13 +1,8 @@
+import { LoginSchemaData, RegisterSchemaData } from "@/zodSchema/userSchema";
 import axios from "axios";
 
-// Talvez seja melhor usar o próprios zod.
-type LoginInputs = { username: string; password: string };
-type RegisterInputs = LoginInputs & {
-  email: string;
-};
-
 // Refatorar, parece redundante.
-export async function axiosLogin(user: LoginInputs) {
+export async function axiosLogin(user: LoginSchemaData) {
   try {
     const headers = {
       "Content-Type": "application/json",
@@ -39,7 +34,7 @@ export async function axiosLogin(user: LoginInputs) {
   }
 }
 
-export async function axiosRegister(user: RegisterInputs) {
+export async function axiosRegister(user: RegisterSchemaData) {
   try {
     const headers = {
       "Content-Type": "application/json",
