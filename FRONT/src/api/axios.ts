@@ -1,13 +1,22 @@
 import { LoginSchemaData, RegisterSchemaData } from "@/zodSchema/userSchema";
 import axios from "axios";
 
+const headers = {
+  "Content-Type": "application/json",
+};
+
+const options = (data: {}) => {
+  return {
+    method: "POST",
+    url: process.env.BASE_URL,
+    headers,
+    data,
+  };
+};
+
 // Refatorar, parece redundante.
 export async function axiosLogin(user: LoginSchemaData) {
   try {
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
     const data = {
       query: `mutation{
       loginUser(User:{
@@ -20,14 +29,7 @@ export async function axiosLogin(user: LoginSchemaData) {
     }`,
     };
 
-    const options = {
-      method: "POST",
-      url: process.env.BASE_URL,
-      headers,
-      data,
-    };
-
-    const res = await axios(options);
+    const res = await axios(options(data));
     return res.data;
   } catch (err) {
     console.log("AXIOS ERROR:", err);
@@ -36,32 +38,20 @@ export async function axiosLogin(user: LoginSchemaData) {
 
 export async function axiosRegister(user: RegisterSchemaData) {
   try {
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
     const data = {
       query: `mutation{
-        registerUser(registerUserInput:{
+        registerUser(User:{
           username:"${user.username}"
           email:"${user.email}"
           password:"${user.password}"
         }){
           username
-          email
-          password
+          access_token
         }
       }`,
     };
 
-    const options = {
-      method: "POST",
-      url: process.env.BASE_URL,
-      headers,
-      data,
-    };
-
-    const res = await axios(options);
+    const res = await axios(options(data));
     return res.data;
   } catch (err) {
     console.log("AXIOS ERROR:", err);

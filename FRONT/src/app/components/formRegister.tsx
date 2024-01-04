@@ -9,7 +9,7 @@ import Input from "./input";
 import InputErrors from "./inputErrors";
 
 export default function FormRegister() {
-  // const router = useRouter();
+  const router = useRouter();
 
   const {
     register,
@@ -26,12 +26,12 @@ export default function FormRegister() {
     if (!res.data) {
       return setError("root", {
         type: "manual",
-        message: "Account already exists.",
+        message: "Email or password already exists.",
       });
     }
 
     // Precisa estar sempre validando autenticação.
-    // router.push("/chat");
+    router.push("/chat");
   };
 
   return (
@@ -75,7 +75,7 @@ export default function FormRegister() {
           {"Already have an account? "}
           <Link
             className="font-medium text-primary-600 hover:underline"
-            href="/"
+            href="/login"
           >
             Login
           </Link>
