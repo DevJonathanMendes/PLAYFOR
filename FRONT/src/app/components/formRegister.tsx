@@ -67,7 +67,7 @@ export default function FormRegister() {
         errors={errors}
       />
       <div>
-        <button type="submit" className="FormSubmit">
+        <button type="submit" className="ButtonDefault">
           Create account
         </button>
 

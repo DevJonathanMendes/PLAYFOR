@@ -14,18 +14,22 @@ export default function Home() {
               What do you want?
             </h1>
             <div className="flex flex-col">
-              <button
-                onClick={() => router.push("/login")}
-                className="ButtonDefault"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => router.push("/register")}
-                className="ButtonDefault"
-              >
-                Register
-              </button>
+              <div>
+                <button
+                  onClick={() => router.push("/login")}
+                  className="ButtonDefault"
+                >
+                  Login
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={() => router.push("/register")}
+                  className="ButtonDefault"
+                >
+                  Register
+                </button>
+              </div>
             </div>
           </div>
         </div>
