@@ -1,10 +1,7 @@
-import Button from "./components/Button";
-import Input from "./components/Input";
-
 const Message = (props: { init: "start" | "end" }) => {
   return (
     <li className={`chat chat-${props.init}`}>
-      <div className="chat-bubble">
+      <div className="chat-bubble chat-bubble-accent">
         <p className="text-justify">
           You underestimate my power! You underestimate my power! You
           underestimate my power! You underestimate my power! You underestimate
@@ -20,57 +17,64 @@ const Message = (props: { init: "start" | "end" }) => {
 
 export default function Chat() {
   return (
-    <main className="flex w-full h-full">
-      <div>
-        <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-          <li className="pb-3 sm:pb-4 hover:bg-sky-700">
-            <div className="flex p-4 ">
-              <div className="avatar online">
-                <div className="w-12 mask mask-squircle">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </div>
-              <div className="ml-4 flex-auto">
-                <div className="font-medium">user1</div>
-                <div className="mt-1 text-slate-700">user1@email.com</div>
-              </div>
-            </div>
-          </li>
-          <li className="pb-3 sm:pb-4">
-            <div className="flex p-4 ">
-              <div className="avatar online">
-                <div className="w-12 mask mask-squircle">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </div>
-              <div className="ml-4 flex-auto">
-                <div className="font-medium">user2</div>
-                <div className="mt-1 text-slate-700">user2@email.com</div>
-              </div>
-            </div>
-          </li>
-        </ul>
+    <main className="h-full shadow">
+      <div className="p-2 flex justify-between items-center border-b-2">
+        <div className="font-semibold text-2xl">Chat</div>
+        <div className="h-10 w-10 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
+          JM
+        </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="h-full overflow-auto scroll-smooth">
-          <ul className="flex-1 p-4">
+      <div className="h-5/6 flex flex-row justify-between">
+        <div className="flex flex-col w-2/5 border-r-2">
+          <div className="border-b-2 py-4 px-2">
+            <input
+              type="text"
+              placeholder="search"
+              className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
+            />
+          </div>
+          <ul className="overflow-y-auto">
             {(() => {
-              const messages = [];
+              const contacts = [];
+
               for (let i = 0; i < 15; i++) {
-                messages.push(
-                  <Message key={i} init={i % 2 == 1 ? "start" : "end"} />
+                contacts.push(
+                  <li
+                    key={i}
+                    className="flex flex-row py-4 px-2 items-center border-b-2"
+                  >
+                    <div className="w-full">
+                      <div className="text-lg font-semibold">Luis1994</div>
+                      <span className="text-gray-500">Pick me at 9:00 Am</span>
+                    </div>
+                  </li>
                 );
               }
 
-              return messages;
+              return contacts;
             })()}
           </ul>
         </div>
 
-        <div className="flex p-2">
-          <Input />
-          <Button />
+        <div className="size-full px-2 flex flex-col justify-between">
+          <div className="overflow-y-auto">
+            <ul>
+              {(() => {
+                const messages = [];
+                for (let i = 0; i < 15; i++) {
+                  messages.push(
+                    <Message key={i} init={i % 2 == 1 ? "start" : "end"} />
+                  );
+                }
+                return messages;
+              })()}
+            </ul>
+          </div>
+
+          <div className="p-2">
+            <input className="FormInput" type="text" placeholder="Message" />
+          </div>
         </div>
       </div>
     </main>
