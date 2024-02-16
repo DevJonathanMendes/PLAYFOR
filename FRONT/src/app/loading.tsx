@@ -1,10 +1,10 @@
 export default function Loading() {
   return (
-    <div className="h-full flex items-center justify-center border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+    <div className="h-full flex items-center justify-center border border-gray-200 rounded-lg bg-gray-50">
       <div role="status">
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

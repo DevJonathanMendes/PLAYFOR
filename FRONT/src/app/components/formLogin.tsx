@@ -51,7 +51,7 @@ export default function FormLogin() {
       />
 
       <div>
-        <button type="submit" className="FormSubmit">
+        <button type="submit" className="ButtonDefault">
           Login
         </button>
         <p className="mt-4 text-sm font-light text-gray-500">
